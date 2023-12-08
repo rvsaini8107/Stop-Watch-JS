@@ -14,49 +14,96 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background:#e1e1e1;
+    height: 100vh;
+}
+
+
+.box {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    border-radius: 20px;
+    background: #c1c1c1;
+    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff41;
+}
+.btn {
+    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff41;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 14px;
+}
+div#h1 {
+    font-size: xxx-large;
+    display: flex;
+    /* width: 80%; */
+    width: 50%;
 }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="box">
-            <div id="h1"></div>
+            <div id="h1">
+                <div id="hours-box" class="hours time-box"></div>
+                <div id="mins-box" class="mins time-box"></div>
+                <div id="sec-box" class="secs time-box"></div>
+                <!-- <div id="milsec-box" class="milsecs time-box"></div> -->
+            </div>
             <div class="button_group">
-                <button id="btn_1" onclick="timeStrat()">Start</button>
-                <button id="btn_2" onclick="timeStop()">Stop</button>
-                <button id="btn_3" onclick="timeReset()">Reset</button>
+                <button id="btn_1" class="btn btn-" onclick="timeStrat()">Start</button>
+                <button id="btn_2" class="btn btn-" onclick="timeStop()">Stop</button>
+                <button id="btn_3" class="btn btn-" onclick="timeReset()">Reset</button>
             </div>
             
         </div>
     </div>
     
     <script>
-        const h1 = document.getElementById("h1");
+        // const h1 = document.getElementById("h1");
+        const hours_box = document.getElementById("hours-box");
+        const mins_box = document.getElementById("mins-box");
+        const sec_box= document.getElementById("sec-box");
+        const milsec_box = document.getElementById("milsec-box");
+
         let hour = 0;
         let min = 0;
         let sec = 0;
         let milsec = 0;
         let trueOrfalse = true;
        
-        let timeTemp = `${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
-        h1.innerText = timeTemp;
+        setTime(00,00,00,000)
+        // let timeTemp = `${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+        // h1.innerText = timeTemp;
         let time;
         // start time
-        
+        function setTime(hour,min,sec,milsec){
+            console.log("time",hour,min,sec,milsec)
+            hours_box.innerText=`${hour<10?"0"+hour:hour}:`;
+            mins_box.innerText=`${min<10?"0"+min:min}:`;
+            sec_box.innerText=`${sec<10?"0"+sec:sec}`;
+            // milsec_box.innerText=`:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+        }
         function timeStrat(){
             if(trueOrfalse){
                 trueOrfalse=false;
             console.log("start");
             time = setInterval(()=>{
                
-                ++milsec;
+                // ++milsec;
+                sec++
                 
-                if(milsec>999){sec++;milsec=0;}
+                // if(milsec>999){sec++;milsec=0;}
                 if(sec>59){min++;sec=0;}
                 if(min>59){hour++;min=0;}
-                h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+                // h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+                
+                setTime(hour,min,sec,milsec)
                 console.log(sec)
-            },1)
+            },1000)
         }
         }
         function timeStop(){
@@ -67,7 +114,8 @@
         function timeReset(){
             timeStop()
             hour=min=sec=milsec=0;
-            h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+            // h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+            setTime(hour,min,sec,milsec)
             console.log("reset");
 
         }
