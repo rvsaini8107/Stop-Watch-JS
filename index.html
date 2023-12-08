@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .container {
+    font-family: "Black Ops One" ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div id="h1"></div>
+            <div class="button_group">
+                <button id="btn_1" onclick="timeStrat()">Start</button>
+                <button id="btn_2" onclick="timeStop()">Stop</button>
+                <button id="btn_3" onclick="timeReset()">Reset</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script>
+        const h1 = document.getElementById("h1");
+        let hour = 0;
+        let min = 0;
+        let sec = 0;
+        let milsec = 0;
+        let trueOrfalse = true;
+       
+        let timeTemp = `${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+        h1.innerText = timeTemp;
+        let time;
+        // start time
+        
+        function timeStrat(){
+            if(trueOrfalse){
+                trueOrfalse=false;
+            console.log("start");
+            time = setInterval(()=>{
+               
+                ++milsec;
+                
+                if(milsec>999){sec++;milsec=0;}
+                if(sec>59){min++;sec=0;}
+                if(min>59){hour++;min=0;}
+                h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+                console.log(sec)
+            },1)
+        }
+        }
+        function timeStop(){
+            trueOrfalse=true;
+            console.log("stop");
+            clearInterval(time);
+        }
+        function timeReset(){
+            timeStop()
+            hour=min=sec=milsec=0;
+            h1.innerText=`${hour<10?"0"+hour:hour}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}:${milsec<10?"00"+milsec:milsec<99?"0":milsec}`;
+            console.log("reset");
+
+        }
+        
+        
+
+        
+
+    </script>
+</body>
+</html>
